@@ -1,0 +1,6 @@
+# dbt_project.yml
+name: "mta-rtf"
+version: "1.0.0"
+
+dbt-cloud:
+  project-id: 449146
