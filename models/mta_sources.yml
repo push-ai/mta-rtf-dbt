@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: mta
+    schema: mta_subway
+    tables:
+      - name: alerts
+      - name: alerts__alert__header_text__translation
+      - name: alerts__alert__informed_entity
+      - name: routes
