@@ -6,5 +6,12 @@ sources:
     tables:
       - name: alerts
       - name: alerts__alert__header_text__translation
+      - name: alerts__alert__description_text__translation
       - name: alerts__alert__informed_entity
+      - name: alerts__alert__active_period
       - name: routes
+      - name: stops
+      - name: stop_times
+      - name: trips
+      - name: trip_updates
+      - name: trip_updates__trip_update__stop_time_update
