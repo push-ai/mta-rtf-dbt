@@ -6,6 +6,7 @@ with base as (
     trip_uid_text,
     rt_trip_id,
     route_id,
+    trip_headsign,
     direction_id,
     service_date,
     rt_origin_code_hundredths,
@@ -26,6 +27,7 @@ agg as (
     any_value(rt_trip_id)    as rt_trip_id,
     any_value(route_id)      as route_id,
     any_value(direction_id)  as direction_id,
+    any_value(trip_headsign) as trip_headsign,
     any_value(service_date)  as service_date,
     any_value(rt_origin_code_hundredths) as rt_origin_code_hundredths,
 
@@ -36,8 +38,23 @@ agg as (
     max(as_of)       as last_ingest_ts,
 
     -- Terminal stops and sequences
-    array_agg(struct(stop_id, stop_sequence_int) order by stop_sequence_int asc limit 1)[offset(0)].stop_id as first_stop_id,
-    array_agg(struct(stop_id, stop_sequence_int) order by stop_sequence_int desc limit 1)[offset(0)].stop_id as last_stop_id,
+    -- Prefer rows with non-null stop_sequence; if all null, use event_ts_utc as fallback ordering
+    array_agg(
+      struct(stop_id, stop_sequence_int)
+      order by
+        case when stop_sequence_int is null then 1 else 0 end asc,
+        stop_sequence_int asc,
+        event_ts_utc asc
+      limit 1
+    )[offset(0)].stop_id as first_stop_id,
+    array_agg(
+      struct(stop_id, stop_sequence_int)
+      order by
+        case when stop_sequence_int is null then 1 else 0 end asc,
+        stop_sequence_int desc,
+        event_ts_utc desc
+      limit 1
+    )[offset(0)].stop_id as last_stop_id,
     min(stop_sequence_int) as first_stop_sequence,
     max(stop_sequence_int) as last_stop_sequence,
 
