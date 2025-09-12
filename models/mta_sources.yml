@@ -5,13 +5,174 @@ sources:
     schema: mta_subway
     tables:
       - name: alerts
+        columns:
+          - name: _dlt_id
+            data_type: string
+          - name: _dlt_load_id
+            data_type: string
+          - name: feed
+            data_type: string
+          - name: entity_id
+            data_type: string
+          - name: as_of
+            data_type: string
+
       - name: alerts__alert__header_text__translation
+        columns:
+          - name: _dlt_id
+            data_type: string
+          - name: _dlt_parent_id
+            data_type: string
+          - name: text
+            data_type: string
+          - name: language
+            data_type: string
+
       - name: alerts__alert__description_text__translation
+        columns:
+          - name: _dlt_id
+            data_type: string
+          - name: _dlt_parent_id
+            data_type: string
+          - name: text
+            data_type: string
+          - name: language
+            data_type: string
+
       - name: alerts__alert__informed_entity
+        columns:
+          - name: _dlt_id
+            data_type: string
+          - name: _dlt_parent_id
+            data_type: string
+          - name: agency_id
+            data_type: string
+          - name: route_id
+            data_type: string
+          - name: stop_id
+            data_type: string
+          - name: trip__trip_id
+            data_type: string
+          - name: trip__route_id
+            data_type: string
+          - name: trip__direction_id
+            data_type: int64
+
       - name: alerts__alert__active_period
+        columns:
+          - name: _dlt_id
+            data_type: string
+          - name: _dlt_parent_id
+            data_type: string
+          - name: start
+            data_type: int64
+          - name: end
+            data_type: int64
+
       - name: routes
+        columns:
+          - name: route_id
+            data_type: string
+          - name: route_short_name
+            data_type: string
+          - name: route_long_name
+            data_type: string
+          - name: route_desc
+            data_type: string
+          - name: route_type
+            data_type: int64
+          - name: route_color
+            data_type: string
+          - name: route_text_color
+            data_type: string
+          - name: agency_id
+            data_type: string
+
       - name: stops
+        columns:
+          - name: stop_id
+            data_type: string
+          - name: stop_name
+            data_type: string
+          - name: parent_station
+            data_type: string
+          - name: stop_lat
+            data_type: float64
+          - name: stop_lon
+            data_type: float64
+
       - name: stop_times
+        columns:
+          - name: trip_id
+            data_type: string
+          - name: stop_id
+            data_type: string
+          - name: stop_sequence
+            data_type: int64
+          - name: arrival_time
+            data_type: string
+          - name: departure_time
+            data_type: string
+
       - name: trips
+        columns:
+          - name: trip_id
+            data_type: string
+          - name: route_id
+            data_type: string
+          - name: service_id
+            data_type: string
+          - name: trip_headsign
+            data_type: string
+          - name: direction_id
+            data_type: int64
+
       - name: trip_updates
+        columns:
+          - name: _dlt_id
+            data_type: string
+          - name: _dlt_load_id
+            data_type: string
+          - name: feed
+            data_type: string
+          - name: entity_id
+            data_type: string
+          - name: as_of
+            data_type: string
+          - name: trip_update__timestamp
+            data_type: int64
+          - name: trip_update__trip__trip_id
+            data_type: string
+          - name: trip_update__trip__route_id
+            data_type: string
+          - name: trip_update__trip__direction_id
+            data_type: int64
+          - name: trip_update__trip__start_date
+            data_type: string
+          - name: trip_update__trip__schedule_relationship
+            data_type: string
+
       - name: trip_updates__trip_update__stop_time_update
+        columns:
+          - name: _dlt_id
+            data_type: string
+          - name: _dlt_parent_id
+            data_type: string
+          - name: stop_id
+            data_type: string
+          - name: stop_sequence
+            data_type: int64
+          - name: arrival__time
+            data_type: int64
+          - name: departure__time
+            data_type: int64
+          - name: arrival__delay
+            data_type: int64
+          - name: departure__delay
+            data_type: int64
+          - name: arrival__uncertainty
+            data_type: int64
+          - name: departure__uncertainty
+            data_type: int64
+          - name: schedule_relationship
+            data_type: string

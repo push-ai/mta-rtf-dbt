@@ -52,6 +52,15 @@ routes as (
     route_desc,
     agency_id
   from {{ source('mta', 'routes') }}
+),
+stops as (
+  select
+    stop_id,
+    stop_name,
+    parent_station,
+    stop_lat,
+    stop_lon
+  from {{ source('mta', 'stops') }}
 )
 
 select
@@ -75,11 +84,16 @@ select
   r.route_color,
   r.route_text_color,
   r.route_desc,
-  r.agency_id
+  r.agency_id,
+  s.stop_name,
+  s.parent_station,
+  s.stop_lat,
+  s.stop_lon
 from base_alerts b
 left join header_text h on h.alert_id = b.alert_id
 left join description_text d on d.alert_id = b.alert_id
 left join active_period ap on ap.alert_id = b.alert_id
 left join informed_entity i on i.alert_id = b.alert_id
+left join stops s on s.stop_id = i.stop_id
 left join routes r on r.route_id = i.route_id
 where b.feed = 'alerts'
