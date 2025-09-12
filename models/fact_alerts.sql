@@ -82,3 +82,4 @@ left join description_text d on d.alert_id = b.alert_id
 left join active_period ap on ap.alert_id = b.alert_id
 left join informed_entity i on i.alert_id = b.alert_id
 left join routes r on r.route_id = i.route_id
+where b.feed = 'alerts'
